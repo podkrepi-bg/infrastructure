@@ -10,14 +10,24 @@ Prerequisites:
 The following settings for the Helm chart are used:
 ```yaml
 ---
+global:
+  storageClass: rook-ceph-block
 ghostBlogTitle: Podkrepi.bg
 ghostHost: blog.podkrepi.bg
+smtpHost: smtp.gmail.com
+smtpPort: 465
+smtpUser: mail-server@podkrepi.bg
+smtpPassword: "m5*M>7&u"
+smtpFromAddress: mail-server@podkrepi.bg
+smtpService: gmail
 persistence: 
-    existingClaim: ghost-pvc
+  enabled: true
+  size: 3Gi
 mariadb: 
-    primary: 
-        persistence: 
-            existingClaim: ghost-mariadb-pvc
+  primary: 
+    persistence: 
+      enabled: true
+      size: 3Gi
 service: 
-    type: ClusterIP
+  type: ClusterIP
 ```
