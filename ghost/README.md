@@ -1,5 +1,5 @@
 # Ghost deployment manual
-We are deploying [Ghost](https://ghost.org/) using the [bitnami/ghost])https://bitnami.com/stack/ghost/helm) Helm chart.
+We are deploying [Ghost](https://ghost.org/) using the [bitnami/ghost](https://bitnami.com/stack/ghost/helm) Helm chart.
 
 _Note that we currently do not have a storage class for provisioning PVs. The setup described below requires a manual creation and binding of PVCs. This setup will most probably change._
 
@@ -15,6 +15,7 @@ global:
 ghostBlogTitle: Podkrepi.bg
 ghostHost: blog.podkrepi.bg
 ghostProtocol: https
+ghostPort: 443
 smtpHost: smtp.gmail.com
 smtpPort: 465
 smtpUser: mail-server@podkrepi.bg
