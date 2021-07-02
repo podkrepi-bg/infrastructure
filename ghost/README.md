@@ -17,9 +17,12 @@ ghostHost: blog.podkrepi.bg
 smtpHost: smtp.gmail.com
 smtpPort: 465
 smtpUser: mail-server@podkrepi.bg
-smtpPassword: "m5*M>7&u"
+smtpPassword: "<<password>>"
 smtpFromAddress: mail-server@podkrepi.bg
 smtpService: gmail
+extraEnvVars: |-
+  - name: SMTP_SECURE_CONNECTION
+    value: "true"
 persistence: 
   enabled: true
   size: 3Gi
