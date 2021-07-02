@@ -14,6 +14,7 @@ global:
   storageClass: rook-ceph-block
 ghostBlogTitle: Podkrepi.bg
 ghostHost: blog.podkrepi.bg
+ghostProtocol: https
 smtpHost: smtp.gmail.com
 smtpPort: 465
 smtpUser: mail-server@podkrepi.bg
