@@ -9,8 +9,12 @@ The following settings for the Helm chart are used:
 ---
 global:
   storageClass: rook-ceph-block
+proxyAddressForwarding: true
 service:
   type: ClusterIP
+ingress:
+  annotations:
+    ingress.kubernetes.io/affinity: cookie
 postgresql: 
   persistence: 
     enabled: "true"
