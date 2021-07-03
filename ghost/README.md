@@ -4,8 +4,7 @@ We are deploying [Ghost](https://ghost.org/) using the [bitnami/ghost](https://b
 _Note that we currently do not have a storage class for provisioning PVs. The setup described below requires a manual creation and binding of PVCs. This setup will most probably change._
 
 Prerequisites:
- - Have a PVC called `ghost-pvc` for provisioning the storage for Ghost
- - Have a PVC called `ghost-mariadb-pvc` for provisioning the storage for MariaDB
+ - Have a storage class `rook-ceph-block` configured.
 
 The following settings for the Helm chart are used:
 ```yaml
