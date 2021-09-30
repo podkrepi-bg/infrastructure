@@ -6,32 +6,4 @@ _Note that we currently do not have a storage class for provisioning PVs. The se
 Prerequisites:
  - Have a storage class `rook-ceph-block` configured.
 
-The following settings for the Helm chart are used:
-```yaml
----
-global:
-  storageClass: rook-ceph-block
-ghostBlogTitle: Podkrepi.bg
-ghostHost: blog.podkrepi.bg
-ghostProtocol: https
-ghostPort: 443
-smtpHost: smtp.gmail.com
-smtpPort: 465
-smtpUser: mail-server@podkrepi.bg
-smtpPassword: "<<password>>"
-smtpFromAddress: mail-server@podkrepi.bg
-smtpService: gmail
-extraEnvVars: |-
-  - name: SMTP_SECURE_CONNECTION
-    value: "true"
-persistence: 
-  enabled: true
-  size: 3Gi
-mariadb: 
-  primary: 
-    persistence: 
-      enabled: true
-      size: 3Gi
-service: 
-  type: ClusterIP
-```
+The settings for the Helm chart can be found in `ghost.values.yaml`.

@@ -1,0 +1,162 @@
+affinity: {}
+allowEmptyPassword: true
+args: []
+clusterDomain: cluster.local
+command: []
+commonAnnotations: {}
+commonLabels: {}
+containerPorts:
+  http: 2368
+  https: 2368
+containerSecurityContext:
+  enabled: true
+  runAsNonRoot: true
+  runAsUser: 1001
+customLivenessProbe: {}
+customReadinessProbe: {}
+existingSecret: ''
+externalDatabase:
+  database: bitnami_ghost
+  existingSecret: ''
+  host: localhost
+  password: ''
+  port: 3306
+  user: bn_ghost
+extraDeploy: []
+extraEnvVars: |-
+  - name: SMTP_SECURE_CONNECTION
+    value: "true"
+extraEnvVarsCM: ''
+extraEnvVarsSecret: ''
+extraVolumeMounts: []
+extraVolumes: []
+fullnameOverride: ''
+ghostBlogTitle: 'Podkrepi.bg'
+ghostEmail: user@example.com
+ghostEnableHttps: false
+ghostHost: 'blog.podkrepi.bg'
+ghostPassword: ''
+ghostPath: /
+ghostSkipInstall: false
+ghostUsername: user
+global:
+  imagePullSecrets: []
+  imageRegistry: ''
+  storageClass: 'rook-ceph-block'
+hostAliases: []
+image:
+  debug: false
+  pullPolicy: IfNotPresent
+  pullSecrets: []
+  registry: docker.io
+  repository: bitnami/ghost
+  tag: 4.16.0-debian-10-r0
+ingress:
+  annotations: {}
+  apiVersion: ''
+  certManager: false
+  enabled: false
+  extraHosts: []
+  extraPaths: []
+  extraTls: []
+  hostname: ghost.local
+  path: /
+  pathType: ImplementationSpecific
+  secrets: []
+  selfSigned: false
+  tls: false
+initContainers: []
+kubeVersion: ''
+lifecycleHooks: {}
+livenessProbe:
+  enabled: true
+  failureThreshold: 6
+  initialDelaySeconds: 120
+  periodSeconds: 10
+  successThreshold: 1
+  timeoutSeconds: 5
+mariadb:
+  architecture: standalone
+  auth:
+    database: bitnami_ghost
+    existingSecret: ''
+    password: ''
+    rootPassword: ''
+    username: bn_ghost
+  enabled: true
+  primary:
+    persistence:
+      accessModes:
+        - ReadWriteOnce
+      enabled: true
+      size: 3Gi
+      storageClass: ''
+nameOverride: ''
+nodeAffinityPreset:
+  key: ''
+  type: ''
+  values: []
+nodeSelector: {}
+persistence:
+  accessModes:
+    - ReadWriteOnce
+  annotations: {}
+  enabled: true
+  existingClaim: ''
+  size: 5Gi
+  storageClass: ''
+podAffinityPreset: ''
+podAnnotations: {}
+podAntiAffinityPreset: soft
+podLabels: {}
+podSecurityContext:
+  enabled: true
+  fsGroup: 1001
+priorityClassName: ''
+readinessProbe:
+  enabled: true
+  failureThreshold: 6
+  initialDelaySeconds: 30
+  periodSeconds: 5
+  successThreshold: 1
+  timeoutSeconds: 3
+replicaCount: 1
+resources:
+  limits: {}
+  requests: {}
+service:
+  annotations: {}
+  clusterIP: ''
+  externalTrafficPolicy: Cluster
+  extraPorts: []
+  httpsPort: 443
+  loadBalancerIP: ''
+  loadBalancerSourceRanges: []
+  nodePorts:
+    http: ''
+    https: ''
+  port: 80
+  type: ClusterIP
+sidecars: []
+smtpExistingSecret: ''
+smtpHost: 'smtp.gmail.com'
+smtpPassword: '<<password>>'
+smtpPort: '465'
+smtpService: 'gmail'
+smtpUser: 'mail-server@podkrepi.bg'
+tolerations: {}
+updateStrategy:
+  type: RollingUpdate
+volumePermissions:
+  enabled: false
+  image:
+    pullPolicy: IfNotPresent
+    pullSecrets: []
+    registry: docker.io
+    repository: bitnami/bitnami-shell
+    tag: 10-debian-10-r202
+  resources:
+    limits: {}
+    requests: {}
+  securityContext:
+    runAsUser: 0
