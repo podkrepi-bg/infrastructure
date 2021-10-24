@@ -15,6 +15,7 @@ service:
 ingress:
   annotations:
     ingress.kubernetes.io/affinity: cookie
+    nginx.ingress.kubernetes.io/proxy-buffer-size: 256k
 postgresql: 
   persistence: 
     enabled: "true"
