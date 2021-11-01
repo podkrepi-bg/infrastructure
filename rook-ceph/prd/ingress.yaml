@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: cdn
+  namespace: rook-ceph
+spec:
+  rules:
+  - host: cdn.podkrepi.bg
+    http:
+      paths:
+      - backend:
+          service:
+            name: rook-ceph-rgw-object-store
+            port:
+              number: 80
+        pathType: ImplementationSpecific
+  tls:
+  - hosts:
+    - cdn.podkrepi.bg

@@ -1,0 +1,33 @@
+apiVersion: ceph.rook.io/v1
+kind: CephObjectStore
+metadata:
+  name: object-store
+  namespace: rook-ceph
+spec:
+  metadataPool:
+    failureDomain: host
+    replicated:
+      size: 2
+  dataPool:
+    failureDomain: host
+    replicated:
+      size: 2
+  preservePoolsOnDelete: true
+  gateway:
+    sslCertificateRef:
+    port: 80
+    # securePort: 443
+    instances: 2
+  healthCheck:
+    bucket:
+      disabled: false
+      interval: 60s
+---
+apiVersion: ceph.rook.io/v1
+kind: CephObjectStoreUser
+metadata:
+  name: object-store-admin
+  namespace: rook-ceph
+spec:
+  store: object-store
+  displayName: "Object-store admin"
