@@ -139,11 +139,11 @@ service:
   type: ClusterIP
 sidecars: []
 smtpExistingSecret: ''
-smtpHost: 'smtp.gmail.com'
+smtpHost: smtp.eu.mailgun.org
 smtpPassword: '<<password>>'
-smtpPort: '465'
-smtpService: 'gmail'
-smtpUser: 'mail-server@podkrepi.bg'
+smtpPort: '587'
+smtpService: mailgun
+smtpUser: postmaster@podkrepi.bg
 tolerations: {}
 updateStrategy:
   type: RollingUpdate
