@@ -268,8 +268,8 @@ updateStrategy:
 ## Pulling a new version of the custom theme
 To pull a newer version of the custom theme from the current repo just delete the Keycloak pod from the cluster. A new one will be automatically created and the latest version of the theme will be available there.
 
-# Local testing
-Run docker-compose up with the docker-compose.yml from this folder. 
+# Local keycloak for development
+Run docker-compose up with the docker-compose.yml from this folder. The server will start on localhost:9080 with default admin user: user and default password: bitnami as per default configuration from here: https://hub.docker.com/r/bitnami/keycloak/
 
 # Custom Theme for Podkrepi.bg
 The docker-compose.yml will also add a custom theme with the style of Podkprepi.bg from ./theme-podkrepi . 
