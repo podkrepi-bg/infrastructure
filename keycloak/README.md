@@ -271,6 +271,8 @@ To pull a newer version of the custom theme from the current repo just delete th
 # Local keycloak for development
 Run docker-compose up with the docker-compose.yml from this folder. The server will start on localhost:9080 with default admin user: user and default password: bitnami as per default configuration from here: https://hub.docker.com/r/bitnami/keycloak/
 
+Then you need to create the webapp-dev realm and redirect the frontend and api to it. More details on configuring the realm here: https://www.keycloak.org/docs/latest/server_admin/#configuring-realms
+
 # Custom Theme for Podkrepi.bg
 The docker-compose.yml will also add a custom theme with the style of Podkprepi.bg from ./theme-podkrepi . 
 To make more changes in see tutorial here: https://www.keycloak.org/docs/latest/server_development/#creating-a-theme
