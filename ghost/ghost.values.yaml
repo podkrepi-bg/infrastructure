@@ -21,11 +21,11 @@ externalDatabase:
   host: localhost
   password: ''
   port: 3306
+  ssl: false
+  sslCaFile: ''
   user: bn_ghost
 extraDeploy: []
-extraEnvVars: |-
-  - name: SMTP_SECURE_CONNECTION
-    value: "true"
+extraEnvVars: []
 extraEnvVarsCM: ''
 extraEnvVarsSecret: ''
 extraVolumeMounts: []
@@ -50,16 +50,17 @@ image:
   pullSecrets: []
   registry: docker.io
   repository: bitnami/ghost
-  tag: 4.16.0-debian-10-r0
+  tag: 5.5.0-debian-11-r1
 ingress:
   annotations: {}
   apiVersion: ''
-  certManager: false
   enabled: false
   extraHosts: []
   extraPaths: []
+  extraRules: []
   extraTls: []
   hostname: ghost.local
+  ingressClassName: ''
   path: /
   pathType: ImplementationSpecific
   secrets: []
@@ -75,7 +76,7 @@ livenessProbe:
   periodSeconds: 10
   successThreshold: 1
   timeoutSeconds: 5
-mariadb:
+mysql:
   architecture: standalone
   auth:
     database: bitnami_ghost
@@ -92,6 +93,23 @@ mariadb:
       size: 3Gi
       storageClass: ''
 nameOverride: ''
+networkPolicy:
+  egressRules:
+    customRules: {}
+    denyConnectionsToExternal: false
+  enabled: false
+  ingress:
+    enabled: false
+    namespaceSelector: {}
+    podSelector: {}
+  ingressRules:
+    accessOnlyFrom:
+      enabled: false
+      namespaceSelector: {}
+      podSelector: {}
+    backendOnlyAccessibleByFrontend: false
+    customBackendSelector: {}
+    customRules: {}
 nodeAffinityPreset:
   key: ''
   type: ''
@@ -105,6 +123,7 @@ persistence:
   existingClaim: ''
   size: 5Gi
   storageClass: ''
+  subPath: ''
 podAffinityPreset: ''
 podAnnotations: {}
 podAntiAffinityPreset: soft
@@ -122,21 +141,34 @@ readinessProbe:
   timeoutSeconds: 3
 replicaCount: 1
 resources:
-  limits: {}
-  requests: {}
+  limits:
+    memory: 300Mi
+    cpu: 400m
+  requests:
+    memory: 200Mi
+    cpu: 200m
+schedulerName: ''
 service:
   annotations: {}
   clusterIP: ''
   externalTrafficPolicy: Cluster
   extraPorts: []
-  httpsPort: 443
   loadBalancerIP: ''
   loadBalancerSourceRanges: []
   nodePorts:
     http: ''
     https: ''
-  port: 80
+  ports:
+    http: 80
+    https: 443
+  sessionAffinity: None
+  sessionAffinityConfig: {}
   type: ClusterIP
+serviceAccount:
+  annotations: {}
+  automountServiceAccountToken: false
+  create: true
+  name: ''
 sidecars: []
 smtpExistingSecret: ''
 smtpHost: smtp.eu.mailgun.org
@@ -144,9 +176,18 @@ smtpPassword: '<<password>>'
 smtpPort: '587'
 smtpService: mailgun
 smtpUser: postmaster@podkrepi.bg
-tolerations: {}
+smtpProtocol: ''
+startupProbe:
+  enabled: false
+  failureThreshold: 6
+  initialDelaySeconds: 120
+  periodSeconds: 10
+  successThreshold: 1
+  timeoutSeconds: 5
+tolerations: []
+topologySpreadConstraints: []
 updateStrategy:
-  type: RollingUpdate
+  type: Recreate
 volumePermissions:
   enabled: false
   image:
@@ -154,7 +195,7 @@ volumePermissions:
     pullSecrets: []
     registry: docker.io
     repository: bitnami/bitnami-shell
-    tag: 10-debian-10-r202
+    tag: 11-debian-11-r19
   resources:
     limits: {}
     requests: {}
