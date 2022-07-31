@@ -11,7 +11,7 @@ spec:
       template:
         spec:
           containers:
-          - image: ghcr.io/podkrepi-bg/infrastructure/backup-job:v1 
+          - image: ghcr.io/podkrepi-bg/infrastructure/backup-job:v1.0.1 
             name: backup-job
             resources:
               requests:
