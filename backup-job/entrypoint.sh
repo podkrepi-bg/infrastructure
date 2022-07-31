@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 NOW=`date +%Y%m%d-%H%M%S`
 PG_BACKUP_PATH=/var/podkrepibg-backup-$NOW.sql
