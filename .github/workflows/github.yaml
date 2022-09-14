@@ -1,0 +1,16 @@
+name: Mondoo GitHub Organization scan
+on:
+  push:
+  schedule:
+    - cron: "0 * 1 * *"
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: mondoohq/actions/github-org@v0.6.0
+        with:
+          service-account-credentials: ${{ secrets.MONDOO_SERVICE_ACCOUNT }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          organization: podkrepi-bg
+          is-cicd: false
