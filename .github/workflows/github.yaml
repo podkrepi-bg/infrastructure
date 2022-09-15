@@ -4,7 +4,8 @@ on:
   schedule:
     - cron: "0 * 1 * *"
 jobs:
-  install:
+  scan:
+    name: Scan podkrepi-bg organization
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
