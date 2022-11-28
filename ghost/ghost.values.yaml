@@ -31,9 +31,9 @@ extraEnvVarsSecret: ''
 extraVolumeMounts: []
 extraVolumes: []
 fullnameOverride: ''
-ghostBlogTitle: 'Podkrepi.bg'
+ghostBlogTitle: Podkrepi.bg
 ghostEmail: user@example.com
-ghostEnableHttps: false
+ghostEnableHttps: true
 ghostHost: 'blog.podkrepi.bg'
 ghostPassword: ''
 ghostPath: /
@@ -46,11 +46,12 @@ global:
 hostAliases: []
 image:
   debug: false
-  pullPolicy: IfNotPresent
+  digest: ''
+  pullPolicy: Always
   pullSecrets: []
   registry: docker.io
   repository: bitnami/ghost
-  tag: 5.5.0-debian-11-r1
+  tag: 5.24.0-debian-11-r0
 ingress:
   annotations: {}
   apiVersion: ''
@@ -171,12 +172,12 @@ serviceAccount:
   name: ''
 sidecars: []
 smtpExistingSecret: ''
-smtpHost: smtp.eu.mailgun.org
+smtpHost: 'smtp.eu.mailgun.org'
 smtpPassword: '<<password>>'
 smtpPort: '587'
-smtpService: mailgun
-smtpUser: postmaster@podkrepi.bg
 smtpProtocol: ''
+smtpService: 'mailgun'
+smtpUser: 'postmaster@podkrepi.bg'
 startupProbe:
   enabled: false
   failureThreshold: 6
@@ -191,11 +192,12 @@ updateStrategy:
 volumePermissions:
   enabled: false
   image:
-    pullPolicy: IfNotPresent
+    digest: ''
+    pullPolicy: Always
     pullSecrets: []
     registry: docker.io
     repository: bitnami/bitnami-shell
-    tag: 11-debian-11-r19
+    tag: 11-debian-11-r55
   resources:
     limits: {}
     requests: {}
