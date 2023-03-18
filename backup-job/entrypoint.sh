@@ -2,7 +2,7 @@
 set -e
 
 NOW=`date +%Y%m%d-%H%M%S`
-PG_BACKUP_PATH=/var/podkrepibg-backup-$NOW.sql
+PG_BACKUP_PATH=/var/$BACKUP_PREFIX-$NOW.sql
 
 # Do the backup
 pg_dump -h $PG_HOST -p $PG_PORT -U $PG_USER -d $PG_DB_NAME > $PG_BACKUP_PATH

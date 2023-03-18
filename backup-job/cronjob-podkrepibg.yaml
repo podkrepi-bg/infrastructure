@@ -1,0 +1,50 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: backup-job
+  namespace: podkrepibg
+spec:
+  jobTemplate:
+    metadata:
+      name: backup-job
+    spec:
+      template:
+        spec:
+          containers:
+          - image: ghcr.io/podkrepi-bg/infrastructure/backup-job:v1.2.0 
+            name: backup-job
+            resources:
+              requests:
+                cpu: 200m
+                memory: 100Mi
+              limits:
+                cpu: 400m
+                memory: 200Mi
+            env:
+            - name: BACKUP_PREFIX
+              value: podkrepibg-backup
+            - name: PG_USER
+              value: backup_job
+            - name: PGPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: backup-user-postgresql
+                  key: password
+            - name: PG_HOST
+              value: postgresql-headless.podkrepibg
+            - name: PG_PORT
+              value: "5432"
+            - name: PG_DB_NAME
+              value: podkrepibg
+            - name: GCP_KEY_PATH
+              value: /etc/gcloud-creds/creds.json
+            volumeMounts:
+            - name: gcloud-creds
+              readOnly: true
+              mountPath: "/etc/gcloud-creds"
+          volumes:
+          - name: gcloud-creds
+            secret:
+              secretName: backup-user-gcloud
+          restartPolicy: OnFailure
+  schedule: 0 0 * * *
