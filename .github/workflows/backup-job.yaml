@@ -3,7 +3,7 @@ name: Release backup job
 on:
   workflow_dispatch:
   push:
-    branches: [master]
+    branches: [main]
     paths:
       - 'backup-job/**'
 
