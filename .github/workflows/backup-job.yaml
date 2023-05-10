@@ -1,0 +1,36 @@
+name: Release backup job
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [master]
+    paths:
+      - 'backup-job/**'
+
+jobs:
+  build-backup-job-container:
+    name: Build backup job container
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Login to GitHub Packages Docker Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Build and push
+        uses: docker/build-push-action@v4
+        with:
+          push: true
+          tags: |
+            ghcr.io/podkrepi-bg/infrastructure/backup-job:main
+
+      - name: Scan with Mondoo
+        uses: mondoohq/actions/docker-image@main
+        env:
+          MONDOO_CONFIG_BASE64: ${{ secrets.MONDOO_SECRET }}
+        with:
+          image: ghcr.io/podkrepi-bg/infrastructure/backup-job:main
