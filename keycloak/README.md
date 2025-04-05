@@ -22,3 +22,10 @@ Keycloak caches the template, so a hard reload is needed:
 * For Production: To pull a newer version of the custom theme from the current repo just delete the Keycloak pod from the cluster. A new one will be automatically created and the latest version of the theme will be available there.
 * For a local docker: stop&delete the container then run docker-compose up again
 
+# DigitalOcean setup
+Create a db user `keycloak` and a database `keycloak` (this should be done in terraform already). Login to the database manually and grant permissions for user `keycloak` to the new database
+```sql
+GRANT ALL PRIVILEGES ON DATABASE keycloak TO keycloak;
+GRANT ALL PRIVILEGES ON SCHEMA public to keycloak;
+```
+

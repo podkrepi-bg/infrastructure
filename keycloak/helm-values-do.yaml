@@ -1,0 +1,387 @@
+adminIngress:
+  annotations: {}
+  apiVersion: ''
+  controller: default
+  enabled: false
+  extraHosts: []
+  extraPaths: []
+  extraRules: []
+  extraTls: []
+  hostname: keycloak.local
+  ingressClassName: ''
+  labels: {}
+  path: '{{ .Values.httpRelativePath }}'
+  pathType: ImplementationSpecific
+  secrets: []
+  selfSigned: false
+  servicePort: http
+  tls: false
+adminRealm: master
+affinity: {}
+args: []
+auth:
+  adminPassword: ''
+  adminUser: user
+  annotations: {}
+  existingSecret: ''
+  passwordSecretKey: ''
+automountServiceAccountToken: true
+autoscaling:
+  behavior:
+    scaleDown:
+      policies:
+        - periodSeconds: 300
+          type: Pods
+          value: 1
+      selectPolicy: Max
+      stabilizationWindowSeconds: 300
+    scaleUp:
+      policies: []
+      selectPolicy: Max
+      stabilizationWindowSeconds: 120
+  enabled: false
+  maxReplicas: 11
+  minReplicas: 1
+  targetCPU: ''
+  targetMemory: ''
+cache:
+  enabled: true
+  stackFile: ''
+  stackName: kubernetes
+  useHeadlessServiceWithAppVersion: false
+clusterDomain: cluster.local
+command: []
+commonAnnotations: {}
+commonLabels: {}
+configuration: ''
+containerPorts:
+  http: 8080
+  https: 8443
+  metrics: 9000
+containerSecurityContext:
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop:
+      - ALL
+  enabled: true
+  privileged: false
+  readOnlyRootFilesystem: true
+  runAsGroup: 1001
+  runAsNonRoot: true
+  runAsUser: 1001
+  seLinuxOptions: {}
+  seccompProfile:
+    type: RuntimeDefault
+customCaExistingSecret: ''
+customLivenessProbe: {}
+customReadinessProbe: {}
+customStartupProbe: {}
+diagnosticMode:
+  args:
+    - infinity
+  command:
+    - sleep
+  enabled: false
+dnsConfig: {}
+dnsPolicy: ''
+enableDefaultInitContainers: true
+enableServiceLinks: true
+existingConfigmap: ''
+externalDatabase:
+  annotations: {}
+  database: bitnami_keycloak
+  existingSecret: db-creds
+  existingSecretDatabaseKey: database
+  existingSecretHostKey: host
+  existingSecretPasswordKey: password
+  existingSecretPortKey: port
+  existingSecretUserKey: username
+  host: ''
+  password: ''
+  port: 5432
+  user: bn_keycloak
+extraContainerPorts: []
+extraDeploy: []
+extraEnvVars: []
+extraEnvVarsCM: ''
+extraEnvVarsSecret: ''
+extraStartupArgs: ''
+extraVolumeMounts:
+  - mountPath: /opt/bitnami/keycloak/themes/podkrepi
+    name: theme
+extraVolumes:
+  - emptyDir: {}
+    name: theme
+fullnameOverride: ''
+global:
+  compatibility:
+    openshift:
+      adaptSecurityContext: auto
+  defaultStorageClass: ''
+  imagePullSecrets: []
+  imageRegistry: ''
+  security:
+    allowInsecureImages: false
+  storageClass: ''
+hostAliases: []
+httpRelativePath: /
+image:
+  debug: false
+  digest: ''
+  pullPolicy: IfNotPresent
+  pullSecrets: []
+  registry: docker.io
+  repository: bitnami/keycloak
+  tag: 26.1.4-debian-12-r2
+ingress:
+  annotations: {}
+  apiVersion: ''
+  controller: default
+  enabled: false
+  extraHosts: []
+  extraPaths: []
+  extraRules: []
+  extraTls: []
+  hostname: keycloak.local
+  hostnameStrict: false
+  ingressClassName: ''
+  labels: {}
+  path: '{{ .Values.httpRelativePath }}'
+  pathType: ImplementationSpecific
+  secrets: []
+  selfSigned: false
+  servicePort: http
+  tls: false
+initContainers: []
+initdbScripts: {}
+initdbScriptsConfigMap: ''
+keycloakConfigCli:
+  annotations:
+    helm.sh/hook: post-install,post-upgrade,post-rollback
+    helm.sh/hook-delete-policy: hook-succeeded,before-hook-creation
+    helm.sh/hook-weight: '5'
+  args: []
+  automountServiceAccountToken: true
+  backoffLimit: 1
+  cleanupAfterFinished:
+    enabled: false
+    seconds: 600
+  command: []
+  configuration: {}
+  containerSecurityContext:
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+        - ALL
+    enabled: true
+    privileged: false
+    readOnlyRootFilesystem: true
+    runAsGroup: 1001
+    runAsNonRoot: true
+    runAsUser: 1001
+    seLinuxOptions: {}
+    seccompProfile:
+      type: RuntimeDefault
+  enabled: false
+  existingConfigmap: ''
+  extraEnvVars: []
+  extraEnvVarsCM: ''
+  extraEnvVarsSecret: ''
+  extraVolumeMounts: []
+  extraVolumes: []
+  hostAliases: []
+  image:
+    digest: ''
+    pullPolicy: IfNotPresent
+    pullSecrets: []
+    registry: docker.io
+    repository: bitnami/keycloak-config-cli
+    tag: 6.4.0-debian-12-r1
+  initContainers: []
+  nodeSelector: {}
+  podAnnotations: {}
+  podLabels: {}
+  podSecurityContext:
+    enabled: true
+    fsGroup: 1001
+    fsGroupChangePolicy: Always
+    supplementalGroups: []
+    sysctls: []
+  podTolerations: []
+  resources: {}
+  resourcesPreset: small
+  sidecars: []
+kubeVersion: ''
+lifecycleHooks: {}
+livenessProbe:
+  enabled: true
+  failureThreshold: 3
+  initialDelaySeconds: 300
+  periodSeconds: 1
+  successThreshold: 1
+  timeoutSeconds: 5
+logging:
+  level: INFO
+  output: default
+metrics:
+  enabled: false
+  prometheusRule:
+    enabled: false
+    groups: []
+    labels: {}
+    namespace: ''
+  service:
+    annotations:
+      prometheus.io/port: '{{ .Values.metrics.service.ports.metrics }}'
+      prometheus.io/scrape: 'true'
+    extraPorts: []
+    ports:
+      http: 8080
+      https: 8443
+      metrics: 9000
+  serviceMonitor:
+    enabled: false
+    endpoints:
+      - path: '{{ include "keycloak.httpPath" . }}metrics'
+      - path: >-
+          {{ include "keycloak.httpPath" . }}realms/{{ .Values.adminRealm
+          }}/metrics
+        port: http
+    honorLabels: false
+    interval: 30s
+    jobLabel: ''
+    labels: {}
+    metricRelabelings: []
+    namespace: ''
+    path: ''
+    port: metrics
+    relabelings: []
+    scheme: http
+    scrapeTimeout: ''
+    selector: {}
+    tlsConfig: {}
+minReadySeconds: 0
+nameOverride: ''
+namespaceOverride: ''
+networkPolicy:
+  allowExternal: true
+  allowExternalEgress: true
+  enabled: true
+  extraEgress: []
+  extraIngress: []
+  ingressNSMatchLabels: {}
+  ingressNSPodMatchLabels: {}
+  kubeAPIServerPorts:
+    - 443
+    - 6443
+    - 8443
+nodeAffinityPreset:
+  key: ''
+  type: ''
+  values: []
+nodeSelector: {}
+pdb:
+  create: true
+  maxUnavailable: ''
+  minAvailable: ''
+podAffinityPreset: ''
+podAnnotations: {}
+podAntiAffinityPreset: soft
+podLabels: {}
+podManagementPolicy: Parallel
+podSecurityContext:
+  enabled: true
+  fsGroup: 1001
+  fsGroupChangePolicy: Always
+  supplementalGroups: []
+  sysctls: []
+postgresql:
+  architecture: standalone
+  auth:
+    database: bitnami_keycloak
+    existingSecret: ''
+    password: ''
+    postgresPassword: ''
+    secretKeys:
+      userPasswordKey: password
+    username: bn_keycloak
+  enabled: false
+priorityClassName: ''
+production: false
+proxy: ''
+proxyHeaders: ''
+rbac:
+  create: false
+  rules: []
+readinessProbe:
+  enabled: true
+  failureThreshold: 3
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  successThreshold: 1
+  timeoutSeconds: 1
+replicaCount: 1
+resources: {}
+resourcesPreset: small
+revisionHistoryLimitCount: 10
+schedulerName: ''
+service:
+  annotations: {}
+  clusterIP: ''
+  externalTrafficPolicy: Cluster
+  extraHeadlessPorts: []
+  extraPorts: []
+  headless:
+    annotations: {}
+    extraPorts: []
+  http:
+    enabled: false
+  loadBalancerIP: ''
+  loadBalancerSourceRanges: []
+  nodePorts:
+    http: ''
+    https: ''
+  ports:
+    http: 80
+    https: 443
+  sessionAffinity: None
+  sessionAffinityConfig: {}
+  type: LoadBalancer
+serviceAccount:
+  annotations: {}
+  automountServiceAccountToken: false
+  create: true
+  extraLabels: {}
+  name: ''
+sidecars: []
+spi:
+  existingSecret: ''
+  hostnameVerificationPolicy: ''
+  passwordsSecret: ''
+  truststoreFilename: keycloak-spi.truststore.jks
+  truststorePassword: ''
+startupProbe:
+  enabled: false
+  failureThreshold: 60
+  initialDelaySeconds: 30
+  periodSeconds: 5
+  successThreshold: 1
+  timeoutSeconds: 1
+statefulsetAnnotations: {}
+terminationGracePeriodSeconds: ''
+tls:
+  autoGenerated: true
+  enabled: true
+  existingSecret: ''
+  keystoreFilename: keycloak.keystore.jks
+  keystorePassword: ''
+  passwordsSecret: ''
+  truststoreFilename: keycloak.truststore.jks
+  truststorePassword: ''
+  usePem: false
+tolerations: []
+topologySpreadConstraints: []
+updateStrategy:
+  rollingUpdate: {}
+  type: RollingUpdate
+usePasswordFiles: true

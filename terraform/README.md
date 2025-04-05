@@ -14,3 +14,9 @@ To apply changes run:
 ```
 terraform apply -var do_token=<<digital ocean token>>
 ```
+
+## Cloning the buckets from a different provider
+If migrating from another provider the buckets can be synchronized via `rclone`:
+```
+rclone sync cdn-dev:banktransactions-files podkrepibg-dev:banktransaction-files-dev
+```

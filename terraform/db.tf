@@ -22,3 +22,23 @@ resource "digitalocean_database_firewall" "db-cluster-access" {
 
   depends_on = [ digitalocean_kubernetes_cluster.cluster ]
 }
+
+resource "digitalocean_database_db" "keycloak" {
+  cluster_id = digitalocean_database_cluster.db.id
+  name       = "keycloak"
+}
+
+resource "digitalocean_database_user" "keycloak" {
+  cluster_id = digitalocean_database_cluster.db.id
+  name       = "keycloak"
+}
+
+resource "digitalocean_database_db" "dev" {
+  cluster_id = digitalocean_database_cluster.db.id
+  name       = "dev"
+}
+
+resource "digitalocean_database_user" "dev" {
+  cluster_id = digitalocean_database_cluster.db.id
+  name       = "dev"
+}
