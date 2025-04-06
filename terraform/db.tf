@@ -42,3 +42,39 @@ resource "digitalocean_database_user" "dev" {
   cluster_id = digitalocean_database_cluster.db.id
   name       = "dev"
 }
+
+# Ghost db
+resource "digitalocean_database_cluster" "ghost-db" {
+  name       = "ghost-db"
+  engine     = "mysql"
+  version    = "8"
+  size       = "db-s-1vcpu-1gb"
+  region     = var.region
+  node_count = 1
+}
+
+resource "digitalocean_database_firewall" "ghost-db-cluster-access" {
+  cluster_id = digitalocean_database_cluster.ghost-db.id
+
+  rule {
+    type  = "k8s"
+    value = digitalocean_kubernetes_cluster.cluster.id
+  }
+
+  rule {
+    type  = "ip_addr"
+    value = "78.130.215.13"
+  }
+
+  depends_on = [ digitalocean_kubernetes_cluster.cluster ]
+}
+
+resource "digitalocean_database_db" "ghost" {
+  cluster_id = digitalocean_database_cluster.ghost-db.id
+  name       = "ghost"
+}
+
+resource "digitalocean_database_user" "ghost" {
+  cluster_id = digitalocean_database_cluster.ghost-db.id
+  name       = "ghost"
+}

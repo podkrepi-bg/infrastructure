@@ -1,0 +1,226 @@
+affinity: {}
+allowEmptyPassword: false
+args: []
+automountServiceAccountToken: false
+clusterDomain: cluster.local
+command: []
+commonAnnotations: {}
+commonLabels: {}
+containerPorts:
+  http: 2368
+  https: 2368
+containerSecurityContext:
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop:
+      - ALL
+  enabled: true
+  privileged: false
+  readOnlyRootFilesystem: true
+  runAsGroup: 1001
+  runAsNonRoot: true
+  runAsUser: 1001
+  seLinuxOptions: {}
+  seccompProfile:
+    type: RuntimeDefault
+customLivenessProbe: {}
+customReadinessProbe: {}
+diagnosticMode:
+  args:
+    - infinity
+  command:
+    - sleep
+  enabled: false
+existingSecret: creds
+externalDatabase:
+  database: ghost
+  existingSecret: creds
+  host: private-ghost-db-do-user-18901686-0.l.db.ondigitalocean.com
+  password: ''
+  port: 25060
+  ssl: false
+  sslCaFile: ''
+  user: ghost
+extraContainerPorts: []
+extraDeploy: []
+extraEnvVars: []
+extraEnvVarsCM: ''
+extraEnvVarsSecret: ''
+extraVolumeMounts: []
+extraVolumes: []
+fullnameOverride: ''
+ghostBlogTitle: Podkrepi.bg
+ghostEmail: user@example.com
+ghostEnableHttps: true
+ghostHost: 'blog-do.podkrepi.bg'
+ghostPassword: ''
+ghostPath: /
+ghostSkipInstall: false
+ghostUsername: user
+global:
+  compatibility:
+    openshift:
+      adaptSecurityContext: auto
+  defaultStorageClass: 'do-block-storage-retain'
+  imagePullSecrets: []
+  imageRegistry: ''
+  security:
+    allowInsecureImages: false
+hostAliases: []
+image:
+  debug: false
+  digest: ''
+  pullPolicy: Always
+  pullSecrets: []
+  registry: docker.io
+  repository: bitnami/ghost
+  tag: 5.116.0-debian-12-r1
+ingress:
+  annotations: {}
+  apiVersion: ''
+  enabled: false
+  extraHosts: []
+  extraPaths: []
+  extraRules: []
+  extraTls: []
+  hostname: ghost.local
+  ingressClassName: ''
+  path: /
+  pathType: ImplementationSpecific
+  secrets: []
+  selfSigned: false
+  tls: false
+initContainers: []
+kubeVersion: ''
+lifecycleHooks: {}
+livenessProbe:
+  enabled: true
+  failureThreshold: 6
+  initialDelaySeconds: 120
+  periodSeconds: 10
+  successThreshold: 1
+  timeoutSeconds: 5
+mysql:
+  architecture: standalone
+  auth:
+    database: bitnami_ghost
+    existingSecret: ''
+    password: ''
+    rootPassword: ''
+    username: bn_ghost
+  enabled: false
+  primary:
+    persistence:
+      accessModes:
+        - ReadWriteOnce
+      enabled: true
+      size: 2Gi
+      storageClass: ''
+    resources: {}
+    resourcesPreset: small
+nameOverride: ''
+networkPolicy:
+  allowExternal: true
+  allowExternalEgress: true
+  enabled: true
+  extraEgress: []
+  extraIngress: []
+  ingressNSMatchLabels: {}
+  ingressNSPodMatchLabels: {}
+nodeAffinityPreset:
+  key: ''
+  type: ''
+  values: []
+nodeSelector: {}
+pdb:
+  create: true
+  maxUnavailable: ''
+  minAvailable: ''
+persistence:
+  accessModes:
+    - ReadWriteOnce
+  annotations: {}
+  enabled: true
+  existingClaim: ''
+  size: 2Gi
+  storageClass: ''
+  subPath: ''
+podAffinityPreset: ''
+podAnnotations: {}
+podAntiAffinityPreset: soft
+podLabels: {}
+podSecurityContext:
+  enabled: true
+  fsGroup: 1001
+  fsGroupChangePolicy: Always
+  supplementalGroups: []
+  sysctls: []
+priorityClassName: ''
+readinessProbe:
+  enabled: true
+  failureThreshold: 6
+  initialDelaySeconds: 30
+  periodSeconds: 5
+  successThreshold: 1
+  timeoutSeconds: 3
+replicaCount: 1
+resources: {}
+resourcesPreset: micro
+schedulerName: ''
+service:
+  annotations:
+    service.beta.kubernetes.io/do-loadbalancer-tls-ports: "443"
+    service.beta.kubernetes.io/do-loadbalancer-certificate-name: "ghost-cert"
+  clusterIP: ''
+  externalTrafficPolicy: Cluster
+  extraPorts: []
+  loadBalancerIP: ''
+  loadBalancerSourceRanges: []
+  nodePorts:
+    http: ''
+    https: ''
+  ports:
+    http: 80
+    https: 443
+  sessionAffinity: None
+  sessionAffinityConfig: {}
+  type: LoadBalancer
+serviceAccount:
+  annotations: {}
+  automountServiceAccountToken: false
+  create: true
+  name: ''
+sidecars: []
+smtpExistingSecret: ''
+smtpHost: smtp.eu.mailgun.org
+smtpPassword: 'secret'
+smtpPort: "587"
+smtpProtocol: ''
+smtpService: mailgun
+smtpUser: postmaster@podkrepi.bg
+startupProbe:
+  enabled: false
+  failureThreshold: 6
+  initialDelaySeconds: 120
+  periodSeconds: 10
+  successThreshold: 1
+  timeoutSeconds: 5
+tolerations: []
+topologySpreadConstraints: []
+updateStrategy:
+  type: Recreate
+usePasswordFiles: true
+volumePermissions:
+  enabled: false
+  image:
+    digest: ''
+    pullPolicy: IfNotPresent
+    pullSecrets: []
+    registry: docker.io
+    repository: bitnami/os-shell
+    tag: 12-debian-12-r40
+  resources: {}
+  resourcesPreset: none
+  securityContext:
+    runAsUser: 0
+    seLinuxOptions: {}

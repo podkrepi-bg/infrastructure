@@ -16,3 +16,7 @@ output "dev_bucket_secret_key" {
     value = digitalocean_spaces_key.dev.secret_key
     sensitive = true
 }
+
+output "ghost_cert_name" {
+    value = digitalocean_certificate.ghost-cert.name
+}

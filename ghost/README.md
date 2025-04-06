@@ -28,3 +28,38 @@ kubectl scale -n ghost deployment ghost --replicas=0
 ```bash
 kubectl scale -n ghost deployment ghost --replicas=1
 ```
+
+# Backing up ghost
+To backup ghost it is required to backup all the static data inside the ghost pod. You can do that by running:
+```bash
+kubectl cp ghost2/ghost-19-1669648135-7dd549f897-bpscr:/bitnami/ghost/content/ content/ 
+```
+
+```bash
+tar -cvf archive.tar -h content/
+```
+
+It may be needed to archive the theme separately from the `content/themes` folder and upload it via the Ghost UI.
+
+# DigitalOcean setup
+All the steps required to run Ghost inside DigitalOcean cluster are listed below.
+
+## Database setup
+Create a db user `ghost` and a database `ghost` (this should be done in terraform already). Login to the database manually and grant permissions for user `ghost` to the new database
+```sql
+GRANT ALL PRIVILEGES ON ghost.* TO ghost;
+FLUSH PRIVILEGES;
+```
+
+## SSL setup
+It is required to have SSL configured on the Digital Ocean load balancer so we can proxy it via Cloudflare. To do that we need a certificate for the domain. Such certificate can be generated via `certbot`:
+```
+sudo certbot certonly --manual --preferred-challenges dns -d www.blog-do.podkrepi.bg -d blog-do.podkrepi.bg
+```
+
+The files need to be copied inside the terraform folder:
+```
+sudo cp /etc/letsencrypt/live/www.blog-do.podkrepi.bg/privkey.pem .
+sudo cp /etc/letsencrypt/live/www.blog-do.podkrepi.bg/chain.pem .
+sudo cp /etc/letsencrypt/live/www.blog-do.podkrepi.bg/cert.pem .
+```

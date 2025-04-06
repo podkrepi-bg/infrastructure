@@ -10,3 +10,11 @@ resource "digitalocean_kubernetes_cluster" "cluster" {
     node_count = 2
   }
 }
+
+resource "digitalocean_certificate" "ghost-cert" {
+  name              = "ghost-cert"
+  type              = "custom"
+  private_key       = file("./privkey.pem")
+  leaf_certificate = file("./cert.pem")
+  certificate_chain = file("./chain.pem")
+}

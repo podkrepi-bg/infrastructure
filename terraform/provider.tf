@@ -41,6 +41,7 @@ resource "digitalocean_project" "pokrepibg" {
   resources   = [
     digitalocean_kubernetes_cluster.cluster.urn,
     digitalocean_database_cluster.db.urn,
+    digitalocean_database_cluster.ghost-db.urn,
   ]
 }
 

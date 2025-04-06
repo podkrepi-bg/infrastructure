@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: creds
+  namespace: ghost
+stringData:
+  smtp-password: pass
+  ghost-password: pass
+  mysql-password: pass
