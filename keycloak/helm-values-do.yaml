@@ -137,21 +137,21 @@ ingress:
   annotations: {}
   apiVersion: ''
   controller: default
-  enabled: false
+  enabled: true
   extraHosts: []
   extraPaths: []
   extraRules: []
   extraTls: []
-  hostname: keycloak.local
+  hostname: keycloak-do.podkrepi.bg
   hostnameStrict: false
-  ingressClassName: ''
+  ingressClassName: 'nginx'
   labels: {}
   path: '{{ .Values.httpRelativePath }}'
   pathType: ImplementationSpecific
   secrets: []
-  selfSigned: false
+  selfSigned: true
   servicePort: http
-  tls: false
+  tls: true
 initContainers: []
 initdbScripts: {}
 initdbScriptsConfigMap: ''
@@ -308,7 +308,7 @@ postgresql:
   enabled: false
 priorityClassName: ''
 production: false
-proxy: ''
+proxy: 'edge'
 proxyHeaders: ''
 rbac:
   create: false
@@ -335,7 +335,7 @@ service:
     annotations: {}
     extraPorts: []
   http:
-    enabled: false
+    enabled: true
   loadBalancerIP: ''
   loadBalancerSourceRanges: []
   nodePorts:
@@ -346,7 +346,7 @@ service:
     https: 443
   sessionAffinity: None
   sessionAffinityConfig: {}
-  type: LoadBalancer
+  type: ClusterIP
 serviceAccount:
   annotations: {}
   automountServiceAccountToken: false

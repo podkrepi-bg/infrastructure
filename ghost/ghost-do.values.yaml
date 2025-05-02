@@ -76,20 +76,21 @@ image:
   repository: bitnami/ghost
   tag: 5.116.0-debian-12-r1
 ingress:
-  annotations: {}
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-buffer-size: 5m
   apiVersion: ''
-  enabled: false
+  enabled: true
   extraHosts: []
   extraPaths: []
   extraRules: []
   extraTls: []
-  hostname: ghost.local
-  ingressClassName: ''
+  hostname: blog-do.podkrepi.bg
+  ingressClassName: 'nginx'
   path: /
   pathType: ImplementationSpecific
   secrets: []
-  selfSigned: false
-  tls: false
+  selfSigned: true
+  tls: true
 initContainers: []
 kubeVersion: ''
 lifecycleHooks: {}
@@ -184,7 +185,7 @@ service:
     https: 443
   sessionAffinity: None
   sessionAffinityConfig: {}
-  type: LoadBalancer
+  type: ClusterIP
 serviceAccount:
   annotations: {}
   automountServiceAccountToken: false
