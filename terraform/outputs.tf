@@ -3,6 +3,11 @@ output "dev_db_pass" {
     sensitive = true
 }
 
+output "prod_db_pass" {
+    value = digitalocean_database_user.prod.password
+    sensitive = true
+}
+
 output "keycloak_db_pass" {
     value = digitalocean_database_user.keycloak.password
     sensitive = true

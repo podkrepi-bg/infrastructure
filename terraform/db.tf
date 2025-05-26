@@ -7,6 +7,22 @@ resource "digitalocean_database_cluster" "db" {
   node_count = 1
 }
 
+resource "digitalocean_database_connection_pool" "dev" {
+  cluster_id = digitalocean_database_cluster.db.id
+  name       = "dev"
+  mode       = "transaction"
+  size       = 3
+  db_name    = "dev"
+}
+
+resource "digitalocean_database_connection_pool" "prod" {
+  cluster_id = digitalocean_database_cluster.db.id
+  name       = "prod"
+  mode       = "transaction"
+  size       = 10
+  db_name    = "prod"
+}
+
 resource "digitalocean_database_firewall" "db-cluster-access" {
   cluster_id = digitalocean_database_cluster.db.id
 
@@ -41,6 +57,16 @@ resource "digitalocean_database_db" "dev" {
 resource "digitalocean_database_user" "dev" {
   cluster_id = digitalocean_database_cluster.db.id
   name       = "dev"
+}
+
+resource "digitalocean_database_db" "prod" {
+  cluster_id = digitalocean_database_cluster.db.id
+  name       = "prod"
+}
+
+resource "digitalocean_database_user" "prod" {
+  cluster_id = digitalocean_database_cluster.db.id
+  name       = "prod"
 }
 
 # Ghost db
