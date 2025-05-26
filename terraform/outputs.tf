@@ -22,6 +22,15 @@ output "dev_bucket_secret_key" {
     sensitive = true
 }
 
+output "prod_bucket_access_key" {
+    value = digitalocean_spaces_key.prod.access_key
+}
+
+output "prod_bucket_secret_key" {
+    value = digitalocean_spaces_key.prod.secret_key
+    sensitive = true
+}
+
 output "ghost_cert_name" {
     value = digitalocean_certificate.ghost-cert.name
 }
