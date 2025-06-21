@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: automation-dev
+  namespace: podkrepibg-dev
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: automation-dev-token
+  namespace: podkrepibg-dev
+  annotations:
+    kubernetes.io/service-account.name: automation-dev
+type: kubernetes.io/service-account-token

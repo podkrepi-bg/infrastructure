@@ -69,6 +69,12 @@ resource "digitalocean_database_user" "prod" {
   name       = "prod"
 }
 
+resource "digitalocean_database_user" "prod-backup-job" {
+  cluster_id = digitalocean_database_cluster.db.id
+  name       = "prod-backup-job"
+}
+
+
 # Ghost db
 resource "digitalocean_database_cluster" "ghost-db" {
   name       = "ghost-db"

@@ -14,6 +14,8 @@ kubectl create secret generic --from-file=/path/to/creds.json backup-user-gcloud
 ```sql
 CREATE USER backup_job WITH ENCRYPTED PASSWORD 'postgrepass';
 GRANT CONNECT ON DATABASE "podkrepibg" to backup_job;
+ALTER DEFAULT PRIVILEGES IN SCHEMA api GRANT SELECT ON TABLES TO backup_job;
+GRANT USAGE ON SCHEMA api TO backup_job;
 GRANT SELECT ON ALL TABLES IN SCHEMA api TO backup_job;
 GRANT SELECT ON ALL SEQUENCES IN SCHEMA api TO backup_job;
 ```
