@@ -105,7 +105,7 @@ extraDeploy: []
 extraEnvVars: []
 extraEnvVarsCM: ''
 extraEnvVarsSecret: ''
-extraStartupArgs: ''
+extraStartupArgs: '-Dkeycloak.profile.feature.token_exchange=enabled -Dkeycloak.profile.feature.admin_fine_grained_authz=enabled'
 extraVolumeMounts:
   - mountPath: /opt/bitnami/keycloak/themes/podkrepi
     name: theme

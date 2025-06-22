@@ -74,6 +74,10 @@ resource "digitalocean_database_user" "prod-backup-job" {
   name       = "prod-backup-job"
 }
 
+resource "digitalocean_database_user" "keycloak-backup-job" {
+  cluster_id = digitalocean_database_cluster.db.id
+  name       = "keycloak-backup-job"
+}
 
 # Ghost db
 resource "digitalocean_database_cluster" "ghost-db" {

@@ -46,28 +46,25 @@ customReadinessProbe: {}
 customStartupProbe: {}
 existingConfigmap: ''
 externalDatabase:
-  database: bitnami_keycloak
-  existingSecret: ''
-  host: ''
+  database: keycloak
+  existingSecret: db-creds
+  existingSecretPasswordKey: password
+  host: 'private-db-do-user-18901686-0.l.db.ondigitalocean.com'
   password: ''
-  port: 5432
-  user: bn_keycloak
+  port: 25060
+  user: keycloak
 extraDeploy: []
 extraEnvVars: []
 extraEnvVarsCM: ''
 extraEnvVarsSecret: ''
 extraStartupArgs: '-Dkeycloak.profile.feature.token_exchange=enabled -Dkeycloak.profile.feature.admin_fine_grained_authz=enabled'
-extraVolumeMounts:
-  - mountPath: /opt/bitnami/keycloak/themes/podkrepi
-    name: theme
-extraVolumes:
-  - emptyDir: {}
-    name: theme
+extraVolumeMounts: {}
+extraVolumes: {}
 fullnameOverride: ''
 global:
   imagePullSecrets: []
   imageRegistry: ''
-  storageClass: 'rook-ceph-block'
+  storageClass: ''
 hostAliases: []
 image:
   debug: false
@@ -75,7 +72,7 @@ image:
   pullSecrets: []
   registry: docker.io
   repository: bitnami/keycloak
-  tag: 15.1.0-debian-10-r0
+  tag: 18.0.2-debian-11-r28
 ingress:
   annotations:
     ingress.kubernetes.io/affinity: cookie
@@ -86,26 +83,12 @@ ingress:
   extraHosts: []
   extraTls: []
   hostname: keycloak.podkrepi.bg
-  ingressClassName: ''
+  ingressClassName: 'nginx'
   path: /
   pathType: ImplementationSpecific
   secrets: []
   servicePort: http
   tls: true
-initContainers:
-  - name: download-theme
-    image: bitnami/git:2.34.1
-    imagePullPolicy: IfNotPresent
-    args:
-      - '-c'
-      - |
-        git clone https://github.com/podkrepi-bg/infrastructure /tmp
-        cp -R /tmp/keycloak/theme_podkrepi/. /theme
-    command:
-      - sh
-    volumeMounts:
-      - mountPath: /theme
-        name: theme
 initdbScripts: {}
 initdbScriptsConfigMap: ''
 keycloakConfigCli:
@@ -192,10 +175,10 @@ podSecurityContext:
   enabled: true
   fsGroup: 1001
 postgresql:
-  enabled: true
+  enabled: false
   existingSecret: ''
   persistence:
-    enabled: true
+    enabled: false
   postgresqlDatabase: bitnami_keycloak
   postgresqlPassword: ''
   postgresqlUsername: bn_keycloak
@@ -222,13 +205,19 @@ service:
   annotations: {}
   clusterIP: ''
   externalTrafficPolicy: Cluster
-  httpsPort: 443
+  extraPorts: []
+  http:
+    enabled: true
   loadBalancerIP: ''
   loadBalancerSourceRanges: []
   nodePorts:
     http: ''
     https: ''
-  port: 80
+  ports:
+    http: 80
+    https: 443
+  sessionAffinity: None
+  sessionAffinityConfig: {}
   type: ClusterIP
 serviceAccount:
   automountServiceAccountToken: false

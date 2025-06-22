@@ -13,6 +13,11 @@ output "prod_backup_job_db_pass" {
     sensitive = true
 }
 
+output "keycloak_backup_job_db_pass" {
+    value = digitalocean_database_user.keycloak-backup-job.password
+    sensitive = true
+}
+
 output "keycloak_db_pass" {
     value = digitalocean_database_user.keycloak.password
     sensitive = true
