@@ -36,6 +36,26 @@ resource "digitalocean_database_firewall" "db-cluster-access" {
     value = "78.130.215.13"
   }
 
+  rule {
+    type  = "ip_addr"
+    value = "84.40.118.189"
+  }
+
+  rule {
+    type  = "ip_addr"
+    value = "149.62.206.217"
+  }
+
+  rule {
+    type  = "ip_addr"
+    value = "77.85.249.142"
+  }
+
+  rule {
+    type  = "ip_addr"
+    value = "151.251.254.183"
+  }
+
   depends_on = [ digitalocean_kubernetes_cluster.cluster ]
 }
 
@@ -83,7 +103,7 @@ resource "digitalocean_database_user" "keycloak-backup-job" {
 resource "digitalocean_database_cluster" "ghost-db" {
   name       = "ghost-db"
   engine     = "mysql"
-  version    = "8"
+  version    = "8.4"
   size       = "db-s-1vcpu-1gb"
   region     = var.region
   node_count = 1

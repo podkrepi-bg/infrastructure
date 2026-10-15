@@ -2,7 +2,7 @@ resource "digitalocean_kubernetes_cluster" "cluster" {
   name   = "cluster"
   region = var.region
   # Grab the latest version slug from `doctl kubernetes options versions`
-  version = "1.32.2-do.0"
+  version = "1.34.12-do.0"
 
   node_pool {
     name       = "worker-pool"
