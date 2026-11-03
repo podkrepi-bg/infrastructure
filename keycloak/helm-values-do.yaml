@@ -105,7 +105,9 @@ extraDeploy: []
 extraEnvVars: []
 extraEnvVarsCM: ''
 extraEnvVarsSecret: ''
-extraStartupArgs: '-Dkeycloak.profile.feature.token_exchange=enabled -Dkeycloak.profile.feature.admin_fine_grained_authz=enabled'
+# Keycloak 17+ (Quarkus) ignores the legacy -Dkeycloak.profile.feature.* flags.
+# Token exchange is required for Google Sign-in (API /provider-login).
+extraStartupArgs: '--features=token-exchange,admin-fine-grained-authz'
 extraVolumeMounts:
   - mountPath: /opt/bitnami/keycloak/themes/podkrepi
     name: theme
@@ -131,7 +133,8 @@ image:
   pullPolicy: IfNotPresent
   pullSecrets: []
   registry: docker.io
-  repository: bitnami/keycloak
+  # Bitnami removed versioned images from docker.io/bitnami; they are kept in bitnamilegacy
+  repository: bitnamilegacy/keycloak
   tag: 26.1.4-debian-12-r2
 ingress:
   annotations: {}
