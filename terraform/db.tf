@@ -33,7 +33,7 @@ resource "digitalocean_database_firewall" "db-cluster-access" {
 
   rule {
     type  = "ip_addr"
-    value = "78.130.215.13"
+    value = "94.155.18.236"
   }
 
   rule {
